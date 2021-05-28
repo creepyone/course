@@ -18,3 +18,6 @@ def get_directors_database():
 def get_actors_database():
     return list(Actor.select().dicts())
 
+
+if __name__ == "__main__":
+    app.run()
