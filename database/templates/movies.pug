@@ -1,0 +1,20 @@
+include index
+
+table.data-table
+    thead
+        tr
+            th(scope="col")='№'
+            th(scope="col")='Title'
+            th(scope="col")='Year'
+            th(scope="col")='Genre'
+            th(scope="col")='Rating'
+            th(scope="col")='Votes'
+    tdata
+        for movie in movies
+            tr
+                td=movie["movie_id"]
+                td=movie["title"]
+                td=movie["year"]
+                td=movie["genre"]
+                td=movie["rating"]
+                td=movie["votes"]
