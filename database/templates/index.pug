@@ -12,11 +12,6 @@ html
                 background-color: #F8F9FAFF;
                 height: 50px;
             }
-            table.nav{
-                margin: 0;
-                width: 50%;
-                height: 100%;
-            }
             .logo{
                 text-decoration: None;
                 font-size: 30px;
@@ -48,7 +43,25 @@ html
                 font-size: 20px;
             }
             td {
-                border-color: black;
+                border: 2px solid black;
+                padding: 0;
+            }
+            table.nav {
+                margin: 0;
+                width: 50%;
+                height: 100%;
+            }
+            #inner_table{
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .inner_td {
+                border-color: white;
+            }
+            .nav_td{
+                border: None;
+                background-color: #F8F9FAFF;
             }
 
     head
@@ -56,15 +69,15 @@ html
         nav
             table.nav
                 tr
-                    td
+                    td.nav_td
                         a.logo(href='/#') IMDb
-                    td
+                    td.nav_td
                         a.link(href='/database/movies') Films
-                    td
+                    td.nav_td
                         a.link(href='/database/actors') Actors
-                    td
+                    td.nav_td
                         a.link(href='/database/directors') Directors
-                    td
+                    td.nav_td
                         a.link(href='/database/queries') Queries
         hr
     body

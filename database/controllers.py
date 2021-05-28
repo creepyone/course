@@ -1,6 +1,7 @@
 from peewee import *
 from models import Actor, Movie, Director
 from itertools import groupby
+from pprint import pprint
 
 
 class MovieController:
@@ -18,9 +19,16 @@ class MovieController:
         return list(Movie.select().dicts())
 
     @staticmethod
-    def get_actors_for_movie():
-        data = Movie.select(Movie, Actor).join(Actor).where(Movie.movie_id == Actor.movie_id)
-        return list(groupby(data.dicts(), lambda x: x["full_name"]))
+    def get_movies_actors():
+        data = Movie.select(Movie, Actor).join(Actor).where(Movie.movie_id == Actor.movie_id).dicts()
+        return ({key: list(items) for key, items in groupby(data, lambda x: x["title"])},
+                {key: len(list(items)) for key, items in groupby(data, lambda x: x["title"])})
+
+    @staticmethod
+    def get_movies_directors():
+        data = Movie.select(Movie, Director).join(Director).where(Movie.movie_id == Director.movie_id).dicts()
+        return ({key: list(items) for key, items in groupby(data, lambda x: x["title"])},
+                {key: len(list(items)) for key, items in groupby(data, lambda x: x["title"])})
 
 
 class ActorController:
@@ -38,10 +46,3 @@ class DirectorController:
         Director.get_or_create(full_name=full_name,
                                movie_id=movie_id)
 
-    @staticmethod
-    def get_directors_with_movies():
-        return list(Director.
-                    select(Director, Movie).
-                    join(Movie).
-                    where(Director.movie_id == Movie.movie_id).
-                    dicts())

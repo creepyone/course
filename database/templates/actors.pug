@@ -8,6 +8,7 @@ table.data-table
     tdata
         for actor in actors
             tr
-                td=actor[0]
-                td=actor[1]["title"]
+                td(rowspan=lengths[actor])=actor
+                for actor_movie in actors[actor]
+                    td=actor_movie["title"]
 

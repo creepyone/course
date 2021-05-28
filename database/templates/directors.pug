@@ -4,12 +4,21 @@ table.data-table
     thead
         tr
             th(scope="col")='№'
-            th(scope="col")="Director's name"
             th(scope="col")="Film name"
+            th(scope="col")="Director's name"
     tdata
-        for director in directors
+        for movie in movies
             tr
-                td=director["director_id"]
-                td=director["full_name"]
-                td=director["title"]
+                td=movies[movie][0]["movie_id"]
+                td=movie
+                if lengths[movie] > 1
+                    td
+                        table#inner_table
+                            for director_movie in movies[movie]
+                                tr
+                                    td.inner_td=director_movie["full_name"]
+                else
+                    td=movies[movie][0]["full_name"]
+
+
 
