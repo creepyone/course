@@ -1,5 +1,5 @@
 import imdb
-import contollers
+from database import controllers
 
 
 def get_list_of_movies(quantity: int) -> list:
@@ -18,7 +18,7 @@ def fill_data_base(quantity: int) -> None:
                                                  year=movie["year"],
                                                  genre=movie["genres"][0],
                                                  rating=movie["rating"],
-                                                 votes=movie["votes"],)
+                                                 votes=movie["votes"], )
 
         actors = movie["cast"]
         directors = movie["directors"]
