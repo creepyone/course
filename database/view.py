@@ -1,5 +1,6 @@
 import flask as flask
 from models import *
+import controllers
 
 app = flask.Flask(__name__)
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
@@ -13,19 +14,19 @@ def main_page():
 
 @app.route("/database/movies", methods=["GET"])
 def get_movie_database():
-    movies = list(Movie.select().dicts())
+    movies = controllers.MovieController.get_all_movies()
     return flask.render_template("movies.pug", movies=movies)
 
 
 @app.route("/database/directors", methods=["GET"])
 def get_directors_database():
-    directors = list(Director.select().dicts())
+    directors = controllers.DirectorController.get_directors_with_movies()
     return flask.render_template("directors.pug", directors=directors)
 
 
 @app.route("/database/actors", methods=["GET"])
 def get_actors_database():
-    actors = list(Actor.select().dicts())
+    actors = controllers.MovieController.get_actors_for_movie()
     return flask.render_template("actors.pug", actors=actors)
 
 

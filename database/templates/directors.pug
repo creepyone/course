@@ -5,11 +5,11 @@ table.data-table
         tr
             th(scope="col")='№'
             th(scope="col")="Director's name"
-            th(scope="col")="Film id"
+            th(scope="col")="Film name"
     tdata
-        for actor in directors
+        for director in directors
             tr
-                td=actor["director_id"]
-                td=actor["full_name"]
-                td=actor["movie_id"]
+                td=director["director_id"]
+                td=director["full_name"]
+                td=director["title"]
 

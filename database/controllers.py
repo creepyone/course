@@ -1,5 +1,6 @@
 from peewee import *
 from models import Actor, Movie, Director
+from itertools import groupby
 
 
 class MovieController:
@@ -11,6 +12,15 @@ class MovieController:
                             genre=genre,
                             rating=rating,
                             votes=votes)
+
+    @staticmethod
+    def get_all_movies():
+        return list(Movie.select().dicts())
+
+    @staticmethod
+    def get_actors_for_movie():
+        data = Movie.select(Movie, Actor).join(Actor).where(Movie.movie_id == Actor.movie_id)
+        return list(groupby(data.dicts(), lambda x: x["full_name"]))
 
 
 class ActorController:
@@ -27,3 +37,11 @@ class DirectorController:
         """Создание записи с режиссёром"""
         Director.get_or_create(full_name=full_name,
                                movie_id=movie_id)
+
+    @staticmethod
+    def get_directors_with_movies():
+        return list(Director.
+                    select(Director, Movie).
+                    join(Movie).
+                    where(Director.movie_id == Movie.movie_id).
+                    dicts())

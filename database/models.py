@@ -1,5 +1,4 @@
 from peewee import *
-
 db = SqliteDatabase("database/movies.db")
 
 
@@ -30,3 +29,4 @@ class Director(BaseModel):
 
 
 db.create_tables([Movie, Actor, Director], safe=True)
+

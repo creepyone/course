@@ -3,13 +3,11 @@ include index
 table.data-table
     thead
         tr
-            th(scope="col")='№'
             th(scope="col")="Actor's name"
-            th(scope="col")="Film id"
+            th(scope="col")="Films"
     tdata
         for actor in actors
-            tr.data-row
-                td=actor["actor_id"]
-                td=actor["full_name"]
-                td=actor["movie_id"]
+            tr
+                td=actor[0]
+                td=actor[1]["title"]
 
