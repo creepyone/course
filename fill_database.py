@@ -1,5 +1,5 @@
 import imdb
-import database.contollers as controllers
+import contollers
 
 
 def get_list_of_movies(quantity: int) -> list:

@@ -1,5 +1,5 @@
 from peewee import *
-from database.models import Actor, Movie, Director
+from models import Actor, Movie, Director
 
 
 class MovieController:
