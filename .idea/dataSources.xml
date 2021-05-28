@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:D:\Рабочий стол\course-master\movies.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="movies [2]" uuid="4f53e5fc-1098-447c-835c-297e8be6698c">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\Рабочий стол\course\database\movies.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

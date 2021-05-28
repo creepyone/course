@@ -32,5 +32,5 @@ def fill_data_base(quantity: int) -> None:
 
 
 if __name__ == "__main__":
-    films = 50
+    films = 20
     fill_data_base(films)
