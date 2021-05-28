@@ -6,7 +6,7 @@ app = flask.Flask("__main__")
 
 @app.route("/database/movies", methods=["GET"])
 def get_movie_database():
-    return list(Movie.select().dicts())
+    return list(Movie.select().dicts()), 200
 
 
 @app.route("/database/directors", methods=["GET"])
