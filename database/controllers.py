@@ -1,7 +1,6 @@
 from peewee import *
 from models import Actor, Movie, Director
 from itertools import groupby
-from pprint import pprint
 
 
 class MovieController:

@@ -6,9 +6,15 @@ table.data-table
             th(scope="col")="Actor's name"
             th(scope="col")="Films"
     tdata
-        for actor in actors
+        for movie in movies
             tr
-                td(rowspan=lengths[actor])=actor
-                for actor_movie in actors[actor]
-                    td=actor_movie["title"]
-
+                td=movies[movie][0]["movie_id"]
+                td=movie
+                if lengths[movie] > 1
+                    td
+                        table#inner_table
+                            for director_movie in movies[movie]
+                                tr
+                                    td.inner_td=director_movie["full_name"]
+                else
+                    td=movies[movie][0]["full_name"]
