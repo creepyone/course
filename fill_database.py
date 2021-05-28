@@ -6,6 +6,7 @@ def get_list_of_movies(quantity: int) -> list:
     """Получить список quantity фильмов, 0 <= quantity <= 250"""
     ia = imdb.IMDb()
     top = ia.get_top250_movies()[:quantity]
+    print("added")
     for movie in top:
         yield ia.get_movie(movie.movieID)
 
@@ -14,6 +15,7 @@ def fill_data_base(quantity: int) -> None:
     """Заполнение базы данных"""
     movies = get_list_of_movies(quantity)
     for movie_id, movie in enumerate(movies, start=1):
+        print("added")
         controllers.MovieController.create_movie(title=movie["title"],
                                                  year=movie["year"],
                                                  genre=movie["genres"][0],
