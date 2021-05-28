@@ -30,4 +30,3 @@ class Director(BaseModel):
 
 
 db.create_tables([Movie, Actor, Director], safe=True)
-a = 4
