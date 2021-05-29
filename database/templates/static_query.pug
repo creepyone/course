@@ -1,6 +1,15 @@
 include index
 
-h2.text-center.my-3="Top 20 movies IMDb"
+h2.text-center.my-3="Static query"
+
+
+form(method="post")
+    .input-group
+          input.form-control.mx-2.my-2(type='text' name="genre" placeholder="Enter the genre")
+          .input-group-append
+            button.mx-2.my-2.btn.btn-outline-secondary(type='submit') Find
+
+
 table.table.table-striped.table-bordered
     thead
         tr

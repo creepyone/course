@@ -1,4 +1,6 @@
-import flask as flask
+import json
+
+import flask
 from models import *
 import controllers
 from pprint import pprint
@@ -9,7 +11,7 @@ app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
 @app.route("/", methods=["GET"])
 def main_page():
-    movies = list(Movie.select().dicts())
+    movies = controllers.MovieController.get_all_movies()
     return flask.render_template("movies.pug", movies=movies)
 
 
@@ -33,9 +35,34 @@ def get_actors_database():
     return flask.render_template("actors.pug", movies=movies, lengths=lengths)
 
 
-@app.route("/database/queries", methods=["GET"])
-def queries():
-    return flask.render_template("queries.pug")
+@app.route("/static", methods=["GET"])
+def static_request():
+    movies = controllers.MovieController.get_all_movies()
+    return flask.render_template("static_query.pug", movies=movies)
+
+
+
+
+
+@app.route("/static", methods=["POST"])
+def static_queries():
+    genre = flask.request.form["genre"]
+    movies = controllers.MovieController.get_movies_by_genre(genre)
+    return flask.render_template("static_query.pug", movies=movies)
+
+
+@app.route("/get_genre", methods=["GET"])
+def dynamic_request():
+    movies = controllers.MovieController.get_all_movies()
+    return flask.render_template("dynamic_query.pug", movies=movies)
+
+
+@app.route("/get_genre", methods=["POST"])
+def get_genre():
+    data = json.loads(flask.request.data)
+    genre = data["genre"]
+    movies = controllers.MovieController.get_movies_by_genre(genre)
+    return flask.jsonify(movies)
 
 
 if __name__ == "__main__":

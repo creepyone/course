@@ -1,14 +1,16 @@
 include index
 
-table.data-table
+h2.text-center.my-3="Top 20 films with actors"
+table.table.table-striped.table-bordered
     thead
         tr
-            th(scope="col")="Actor's name"
-            th(scope="col")="Films"
+            th.header(scope="col")="№"
+            th.header(scope="col")="Films"
+            th.header(scope="col")="Actor's name"
     tdata
         for movie in movies
             tr
-                td=movies[movie][0]["movie_id"]
+                td.num=movies[movie][0]["movie_id"]
                 td=movie
                 if lengths[movie] > 1
                     td

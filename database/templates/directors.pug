@@ -1,19 +1,20 @@
 include index
 
-table.data-table
+h2.text-center.my-3="Top 20 films with directors"
+table.table.table-striped.table-bordered
     thead
         tr
-            th(scope="col")='№'
-            th(scope="col")="Film name"
-            th(scope="col")="Director's name"
+            th.header(scope="col")='№'
+            th.header(scope="col")="Film name"
+            th.header(scope="col")="Director's name"
     tdata
         for movie in movies
             tr
-                td=movies[movie][0]["movie_id"]
-                td=movie
+                td.num.align-middle=movies[movie][0]["movie_id"]
+                td.align-middle=movie
                 if lengths[movie] > 1
                     td
-                        table#inner_table
+                        table
                             for director_movie in movies[movie]
                                 tr
                                     td.inner_td=director_movie["full_name"]

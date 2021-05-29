@@ -1,4 +1,3 @@
-from peewee import *
 from models import Actor, Movie, Director
 from itertools import groupby
 
@@ -16,6 +15,10 @@ class MovieController:
     @staticmethod
     def get_all_movies():
         return list(Movie.select().dicts())
+
+    @staticmethod
+    def get_movies_by_genre(genre: str) -> list:
+        return list(Movie.select().where(Movie.genre == genre).dicts())
 
     @staticmethod
     def get_movies_actors():

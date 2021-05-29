@@ -1,4 +1,5 @@
 from peewee import *
+
 db = SqliteDatabase("database/movies.db")
 
 

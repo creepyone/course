@@ -1,6 +1,12 @@
 include index
 
-h2.text-center.my-3="Top 20 movies IMDb"
+h2.text-center.my-3="Dynamic query"
+
+.input-group
+      input.form-control.mx-2.my-2#genre(type='text' name="genre" placeholder="Enter the genre")
+      .input-group-append
+        button.mx-2.my-2.btn.btn-outline-secondary#filter(href="#", type='submit') Find
+
 table.table.table-striped.table-bordered
     thead
         tr
@@ -10,12 +16,4 @@ table.table.table-striped.table-bordered
             th.header(scope="col")='Genre'
             th.header(scope="col")='Rating'
             th.header(scope="col")='Votes'
-    tdata
-        for movie in movies
-            tr
-                td.num=movie["movie_id"]
-                td=movie["title"]
-                td.num=movie["year"]
-                td=movie["genre"]
-                td.num=movie["rating"]
-                td.num=movie["votes"]
+    tbody#result_table
