@@ -23,7 +23,7 @@ html
             }
             $('#result_table').empty();
             $.ajax({
-            type:'POST',
+                type:'POST',
                 url: '/get_genre',
                 processData: false,  // tell jQuery not to process the data
                 contentType: false,  // tell jQuery not to set contentType
@@ -31,7 +31,7 @@ html
                 success: (data) => {
                     for(i in data)
                     {
-                    movie = data[i]
+                        movie = data[i]
                     $('#result_table').append("<tr>" +
                     "<td>"+movie['movie_id']+"</td>" +
                     "<td>"+movie['title']+"</td>" +

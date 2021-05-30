@@ -57,6 +57,7 @@ def dynamic_request():
 @app.route("/get_genre", methods=["POST"])
 def get_genre():
     data = json.loads(flask.request.data)
+    print(data)
     genre = data["genre"].strip()
     if genre == "":
         movies = controllers.MovieController.get_all_movies()
