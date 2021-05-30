@@ -17,3 +17,11 @@ table.table.table-striped.table-bordered
             th.header(scope="col")='Rating'
             th.header(scope="col")='Votes'
     tbody#result_table
+        for movie in movies
+            tr
+                td.num=movie["movie_id"]
+                td=movie["title"]
+                td.num=movie["year"]
+                td=movie["genre"]
+                td.num=movie["rating"]
+                td.num=movie["votes"]

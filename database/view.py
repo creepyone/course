@@ -41,9 +41,6 @@ def static_request():
     return flask.render_template("static_query.pug", movies=movies)
 
 
-
-
-
 @app.route("/static", methods=["POST"])
 def static_queries():
     genre = flask.request.form["genre"]
@@ -51,7 +48,7 @@ def static_queries():
     return flask.render_template("static_query.pug", movies=movies)
 
 
-@app.route("/get_genre", methods=["GET"])
+@app.route("/dynamic", methods=["GET"])
 def dynamic_request():
     movies = controllers.MovieController.get_all_movies()
     return flask.render_template("dynamic_query.pug", movies=movies)
@@ -60,8 +57,11 @@ def dynamic_request():
 @app.route("/get_genre", methods=["POST"])
 def get_genre():
     data = json.loads(flask.request.data)
-    genre = data["genre"]
-    movies = controllers.MovieController.get_movies_by_genre(genre)
+    genre = data["genre"].strip()
+    if genre == "":
+        movies = controllers.MovieController.get_all_movies()
+    else:
+        movies = controllers.MovieController.get_movies_by_genre(genre)
     return flask.jsonify(movies)
 
 

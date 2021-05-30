@@ -15,12 +15,11 @@ $(document).ready(function() {
         $('#result_table').empty();
         $.ajax({
             type:'POST',
-            url: '/get_genre',
+            url: '/dynamic',
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             data: JSON.stringify(message),
             success: (data) => {
-                    console.log(data);
                     for(i in data)
                     {
                         movie = data[i]
