@@ -10,8 +10,6 @@ html
         script.
             $(document).ready(function() {
 
-            $('.dropdown-toggle').dropdown();
-
             $("#show").click(
                 function () {
                     show_graph();
@@ -21,8 +19,8 @@ html
             $('#filter').click(
                 function() {
                 dynamic_queries();
-            }
-            );
+                }
+            )
 
             function dynamic_queries(){
                 var message = {

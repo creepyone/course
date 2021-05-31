@@ -14,35 +14,37 @@ class MovieController:
 
     @staticmethod
     def get_all_movies():
+        """Получить список всех фильмов"""
         return list(Movie.select().dicts())
 
     @staticmethod
     def get_movies_by_genre(genre: str) -> list:
+        """Получить список фильмов по заданному жанру"""
         return list(Movie.select().where(Movie.genre == genre).dicts())
 
     @staticmethod
-    def get_movies_actors():
+    def get_movies_actors() -> tuple:
+        """Получить фильмы с актерами"""
         data = Movie.select(Movie, Actor).join(Actor).where(Movie.movie_id == Actor.movie_id).dicts()
         return ({key: list(items) for key, items in groupby(data, lambda x: x["title"])},
                 {key: len(list(items)) for key, items in groupby(data, lambda x: x["title"])})
 
     @staticmethod
     def get_movies_directors():
+        """Получить фильмы с режиссёрами"""
         data = Movie.select(Movie, Director).join(Director).where(Movie.movie_id == Director.movie_id).dicts()
         return ({key: list(items) for key, items in groupby(data, lambda x: x["title"])},
                 {key: len(list(items)) for key, items in groupby(data, lambda x: x["title"])})
 
     @staticmethod
     def get_movies_votes():
+        """Получить количество оставивших отзыв с фильмом"""
         return list(Movie.select(Movie.title, Movie.votes).dicts())
 
     @staticmethod
     def get_movies_rating():
+        """Получить рейтинги фильмов"""
         return list(Movie.select(Movie.title, Movie.rating).dicts())
-
-    @staticmethod
-    def get_movies_year():
-        return list(Movie.select(Movie.title, Movie.year).dicts())
 
 
 class ActorController:

@@ -1,7 +1,6 @@
 import json
 
 import flask
-from models import *
 import controllers
 from pprint import pprint
 
@@ -11,18 +10,21 @@ app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
 @app.route("/", methods=["GET"])
 def main_page():
+    """Главная страница, она же страница с таблицей фильмов"""
     movies = controllers.MovieController.get_all_movies()
     return flask.render_template("movies.pug", movies=movies)
 
 
 @app.route("/database/movies", methods=["GET"])
 def get_movie_database():
+    """Страница с таблицей фильмов"""
     movies = controllers.MovieController.get_all_movies()
     return flask.render_template("movies.pug", movies=movies)
 
 
 @app.route("/database/directors", methods=["GET"])
 def get_directors_database():
+    """Страница с таблицей режиссеров"""
     movies, lengths = controllers.MovieController.get_movies_directors()
     pprint(movies)
     pprint(lengths)
@@ -31,6 +33,7 @@ def get_directors_database():
 
 @app.route("/database/actors", methods=["GET"])
 def get_actors_database():
+    """Страница с таблицей с актерами"""
     movies, lengths = controllers.MovieController.get_movies_actors()
     return flask.render_template("actors.pug", movies=movies, lengths=lengths)
 
