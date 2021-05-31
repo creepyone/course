@@ -67,11 +67,7 @@ html
                         var values = [];
                         for (i in data) {
                             labels.push(data[i]["title"])
-                            try{
-                                values.push(data[i]["votes"])
-                            } finally { // костыль т.к. всего 2 типа данных
-                                values.push(data[i]["rating"])
-                            }
+                            values.push(data[i]["votes"])
                         }
                         var ctx = document.getElementById('my_chart').getContext('2d');
                         var myChart = new Chart(ctx, {
@@ -92,6 +88,7 @@ html
                                 }]
                             },
                             options: {
+                                responsive: true,
                                 scales: {
                                     y: {
                                         beginAtZero: true

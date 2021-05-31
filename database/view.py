@@ -76,7 +76,6 @@ def get_films_graph():
         data = controllers.MovieController.get_movies_votes()
     elif parameter == "Rating":
         data = controllers.MovieController.get_movies_rating()
-    print(data)
     return flask.jsonify(data)
 
 
