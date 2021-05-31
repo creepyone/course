@@ -32,6 +32,18 @@ class MovieController:
         return ({key: list(items) for key, items in groupby(data, lambda x: x["title"])},
                 {key: len(list(items)) for key, items in groupby(data, lambda x: x["title"])})
 
+    @staticmethod
+    def get_movies_votes():
+        return list(Movie.select(Movie.title, Movie.votes).dicts())
+
+    @staticmethod
+    def get_movies_rating():
+        return list(Movie.select(Movie.title, Movie.rating).dicts())
+
+    @staticmethod
+    def get_movies_year():
+        return list(Movie.select(Movie.title, Movie.year).dicts())
+
 
 class ActorController:
     @staticmethod

@@ -4,6 +4,7 @@ html
         script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
         script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js", integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0", crossorigin="anonymous")
         script(type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js")
+        script(type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js")
         link(rel="shortcut icon" href="#")
         link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous")
         script.
@@ -11,8 +12,14 @@ html
 
             $('.dropdown-toggle').dropdown();
 
+            $("#show").click(
+                function () {
+                    show_graph();
+                }
+            )
+
             $('#filter').click(
-                function(){
+                function() {
                 dynamic_queries();
             }
             );
@@ -44,7 +51,62 @@ html
                     }
                 });
             }
-            });
+
+            function show_graph() {
+                var param = {
+                    attribute: $('#selection').val()
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "/get_graph",
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    data: JSON.stringify(param),
+                    success: (data) => {
+                        var labels = [];
+                        var values = [];
+                        for (i in data) {
+                            labels.push(data[i]["title"])
+                            try{
+                                values.push(data[i]["votes"])
+                            } finally { // костыль т.к. всего 2 типа данных
+                                values.push(data[i]["rating"])
+                            }
+                        }
+                        var ctx = document.getElementById('my_chart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    data: values,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+                                plugins:  {
+                                    legend: false,
+                                    title: {
+                                        display: true,
+                                        text: "Votes"
+                                    }
+                                }
+                            }
+                        });
+                    }})}});
 
     style().
             .num {
@@ -62,4 +124,5 @@ html
             a.nav-link.w-auto.text-white.lead(href='/database/directors') Directors
             a.nav-link.w-auto.text-white.lead(href='/static') Static queries
             a.nav-link.w-auto.text-white.lead(href='/dynamic') Dynamic queries
+            a.nav-link.w-auto.text-white.lead(href='/graph') Visualization
     body

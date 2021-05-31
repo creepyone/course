@@ -54,16 +54,30 @@ def dynamic_request():
     return flask.render_template("dynamic_query.pug", movies=movies)
 
 
+@app.route("/graph", methods=["GET"])
+def open_graph():
+    return flask.render_template("graph.pug")
+
+
 @app.route("/get_genre", methods=["POST"])
 def get_genre():
-    data = json.loads(flask.request.data)
-    print(data)
-    genre = data["genre"].strip()
+    genre = json.loads(flask.request.data)["genre"].strip()
     if genre == "":
         movies = controllers.MovieController.get_all_movies()
     else:
         movies = controllers.MovieController.get_movies_by_genre(genre)
     return flask.jsonify(movies)
+
+
+@app.route("/get_graph", methods=["POST"])
+def get_films_graph():
+    parameter = json.loads(flask.request.data)["attribute"]
+    if parameter == "Votes":
+        data = controllers.MovieController.get_movies_votes()
+    elif parameter == "Rating":
+        data = controllers.MovieController.get_movies_rating()
+    print(data)
+    return flask.jsonify(data)
 
 
 if __name__ == "__main__":
