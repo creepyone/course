@@ -2,7 +2,6 @@ import json
 
 import flask
 import controllers
-from pprint import pprint
 
 app = flask.Flask(__name__)
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
@@ -26,8 +25,6 @@ def get_movie_database():
 def get_directors_database():
     """Страница с таблицей режиссеров"""
     movies, lengths = controllers.MovieController.get_movies_directors()
-    pprint(movies)
-    pprint(lengths)
     return flask.render_template("directors.pug", movies=movies, lengths=lengths)
 
 
