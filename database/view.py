@@ -43,8 +43,11 @@ def static_request():
 
 @app.route("/static", methods=["POST"])
 def static_queries():
-    genre = flask.request.form["genre"]
-    movies = controllers.MovieController.get_movies_by_genre(genre)
+    genre = flask.request.form["genre"].strip()
+    if genre == "":
+        movies = controllers.MovieController.get_all_movies()
+    else:
+        movies = controllers.MovieController.get_movies_by_genre(genre)
     return flask.render_template("static_query.pug", movies=movies)
 
 

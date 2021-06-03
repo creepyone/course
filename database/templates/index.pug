@@ -38,12 +38,12 @@ html
                     {
                         movie = data[i]
                     $('#result_table').append("<tr>" +
-                    "<td>"+movie['movie_id']+"</td>" +
+                    "<td class='num'>"+movie['movie_id']+"</td>" +
                     "<td>"+movie['title']+"</td>" +
-                    "<td>"+movie['year']+"</td>" +
+                    "<td class='num'>"+movie['year']+"</td>" +
                     "<td>"+movie['genre']+"</td>" +
-                    "<td>"+movie['rating']+"</td>" +
-                    "<td>"+movie['votes']+"</td>" +
+                    "<td class='num'>"+movie['rating']+"</td>" +
+                    "<td class='num'>"+movie['votes']+"</td>" +
                     "</tr>")
                     }
                     }
@@ -63,17 +63,20 @@ html
                     success: (data) => {
                         var labels = [];
                         var values = [];
-                        if ($('#selection').val() == "Rating"){
+                        var str = $('#selection').val();
+                        if (str === "Rating"){
                             for (i in data) {
                                 labels.push(data[i]["title"])
                                 values.push(data[i]["rating"])
                             }
-                        }else{
+                        }else {
                             for (i in data) {
                                 labels.push(data[i]["title"])
                                 values.push(data[i]["votes"])
                             }
                         }
+                        $("#my_chart").remove()
+                        $("#canvas_holder").append("<canvas id=\"my_chart\" class=\"mx-2 my-2\"></canvas>")
                         var ctx = document.getElementById('my_chart').getContext('2d');
                         var myChart = new Chart(ctx, {
                             type: 'bar',
@@ -103,7 +106,7 @@ html
                                     legend: false,
                                     title: {
                                         display: true,
-                                        text: "Votes"
+                                        text: str
                                     }
                                 }
                             }
